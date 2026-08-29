@@ -5,53 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TaskFlow — Team Task Manager</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Inter',sans-serif;background:#0F172A;color:#E2E8F0;font-size:14px;min-height:100vh}
-nav{background:#1E293B;border-bottom:1px solid #334155;padding:0 1.5rem;height:58px;display:flex;align-items:center;justify-content:space-between}
-.nav-logo{font-weight:700;font-size:18px;color:#fff;display:flex;align-items:center;gap:8px}
-.logo-icon{background:linear-gradient(135deg,#6366F1,#8B5CF6);width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px}
-.nav-right{display:flex;align-items:center;gap:12px}
-.avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#6366F1,#EC4899);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:#fff}
-.project-bar{background:#1E293B;border-bottom:1px solid #334155;padding:0 1.5rem;height:48px;display:flex;align-items:center;gap:1rem}
-.proj-name{font-weight:600;font-size:15px;color:#fff}
-.proj-tag{background:#334155;color:#94A3B8;font-size:12px;padding:3px 10px;border-radius:20px}
-.board{padding:1.5rem;display:flex;gap:1rem;overflow-x:auto;min-height:calc(100vh - 106px)}
-.column{background:#1E293B;border-radius:12px;width:280px;flex-shrink:0;display:flex;flex-direction:column;max-height:calc(100vh - 130px)}
-.col-header{padding:1rem 1rem 0.75rem;display:flex;align-items:center;justify-content:space-between}
-.col-title{font-size:13px;font-weight:600;display:flex;align-items:center;gap:8px}
-.col-dot{width:10px;height:10px;border-radius:50%}
-.col-count{background:#334155;color:#94A3B8;font-size:11px;padding:2px 8px;border-radius:20px}
-.add-card-btn{background:none;border:none;color:#64748B;cursor:pointer;font-size:18px;line-height:1}
-.col-body{padding:0 0.75rem 0.75rem;display:flex;flex-direction:column;gap:8px;overflow-y:auto;flex:1}
-.card{background:#0F172A;border:1px solid #334155;border-radius:10px;padding:1rem;cursor:grab;transition:all 0.2s;position:relative}
-.card:hover{border-color:#6366F1;transform:translateY(-1px)}
-.card.dragging{opacity:0.5;transform:rotate(2deg)}
-.card-priority{font-size:10px;font-weight:600;padding:2px 8px;border-radius:20px;display:inline-block;margin-bottom:8px}
-.p-high{background:#FEE2E2;color:#DC2626}
-.p-med{background:#FEF3C7;color:#D97706}
-.p-low{background:#DCFCE7;color:#16A34A}
-.card-title{font-size:13px;font-weight:600;color:#F1F5F9;margin-bottom:8px;line-height:1.4}
-.card-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px}
-.card-tag{background:#1E293B;color:#94A3B8;font-size:11px;padding:2px 8px;border-radius:4px}
-.card-footer{display:flex;align-items:center;justify-content:space-between}
-.card-due{font-size:11px;color:#64748B;display:flex;align-items:center;gap:4px}
-.card-assignee{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:#fff}
-.drop-zone{border:2px dashed #334155;border-radius:10px;height:60px;display:flex;align-items:center;justify-content:center;color:#475569;font-size:12px;transition:all 0.2s}
-.drop-zone.drag-over{border-color:#6366F1;background:#1E293B;color:#6366F1}
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:200;align-items:center;justify-content:center}
-.modal-overlay.open{display:flex}
-.modal{background:#1E293B;border:1px solid #334155;border-radius:16px;padding:1.5rem;width:90%;max-width:420px}
-.modal h3{font-size:16px;font-weight:600;color:#F1F5F9;margin-bottom:1.25rem}
-.form-group{margin-bottom:1rem}
-.form-group label{font-size:12px;font-weight:500;color:#94A3B8;display:block;margin-bottom:4px}
-.form-group input,.form-group select,.form-group textarea{width:100%;background:#0F172A;border:1px solid #334155;border-radius:8px;padding:9px 12px;font-size:13px;color:#F1F5F9;outline:none;transition:border-color 0.2s;font-family:inherit}
-.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:#6366F1}
-.form-group select option{background:#1E293B}
-.modal-btns{display:flex;gap:8px;margin-top:1.25rem}
-.btn-cancel{flex:1;background:#334155;color:#94A3B8;border:none;padding:10px;border-radius:8px;font-size:13px;font-weight:500;cursor:pointer}
-.btn-add{flex:2;background:#6366F1;color:#fff;border:none;padding:10px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -103,85 +57,7 @@ nav{background:#1E293B;border-bottom:1px solid #334155;padding:0 1.5rem;height:5
   </div>
 </div>
 
-<script>
-const colors=['#6366F1','#EC4899','#10B981','#F59E0B','#EF4444','#06B6D4'];
-const columns=[
-  {id:'todo',title:'To Do',dot:'#64748B',cards:[
-    {id:1,title:'Set up MongoDB Atlas cluster and configure env variables',priority:'High',tags:['Backend','DB'],due:'Jun 5',color:'#6366F1'},
-    {id:2,title:'Design login and register UI with form validation',priority:'Medium',tags:['Frontend'],due:'Jun 6',color:'#EC4899'},
-    {id:3,title:'Create user authentication API endpoint (JWT)',priority:'High',tags:['API','Auth'],due:'Jun 7',color:'#10B981'},
-  ]},
-  {id:'inprogress',title:'In Progress',dot:'#3B82F6',cards:[
-    {id:4,title:'Build job listing page with filter sidebar',priority:'High',tags:['Frontend','React'],due:'Jun 4',color:'#F59E0B'},
-    {id:5,title:'Write Postman tests for /jobs endpoints',priority:'Medium',tags:['SQA','Postman'],due:'Jun 5',color:'#6366F1'},
-  ]},
-  {id:'review',title:'In Review',dot:'#A855F7',cards:[
-    {id:6,title:'Implement job application form and submission flow',priority:'Medium',tags:['Frontend','UX'],due:'Jun 3',color:'#EC4899'},
-  ]},
-  {id:'done',title:'Done',dot:'#22C55E',cards:[
-    {id:7,title:'Project setup: Vite + React + Tailwind configured',priority:'Low',tags:['Setup'],due:'Jun 1',color:'#10B981'},
-    {id:8,title:'Create Express server with basic routing structure',priority:'Low',tags:['Backend'],due:'Jun 2',color:'#6366F1'},
-  ]},
-];
 
-let dragCard=null,dragFrom=null;
-
-function pClass(p){return p==='High'?'p-high':p==='Medium'?'p-med':'p-low';}
-
-function render(){
-  const board=document.getElementById('board');
-  board.innerHTML=columns.map((col,ci)=>`
-    <div class="column">
-      <div class="col-header">
-        <div class="col-title"><div class="col-dot" style="background:${col.dot}"></div>${col.title}<span class="col-count">${col.cards.length}</span></div>
-        <button class="add-card-btn" onclick="openAddModalCol(${ci})">+</button>
-      </div>
-      <div class="col-body" id="col-${ci}" ondragover="dragOver(event,${ci})" ondrop="drop(event,${ci})">
-        ${col.cards.map(c=>`
-          <div class="card" draggable="true" id="card-${c.id}" ondragstart="dragStart(event,${c.id},${ci})" ondragend="dragEnd()">
-            <div class="card-priority ${pClass(c.priority)}">${c.priority}</div>
-            <div class="card-title">${c.title}</div>
-            <div class="card-tags">${c.tags.map(t=>`<span class="card-tag">${t}</span>`).join('')}</div>
-            <div class="card-footer">
-              <div class="card-due">📅 ${c.due}</div>
-              <div class="card-assignee" style="background:${c.color}">NN</div>
-            </div>
-          </div>`).join('')}
-        <div class="drop-zone" id="dz-${ci}">Drop here</div>
-      </div>
-    </div>`).join('');
-}
-
-function dragStart(e,cardId,colIdx){dragCard=cardId;dragFrom=colIdx;e.dataTransfer.effectAllowed='move';}
-function dragEnd(){dragCard=null;dragFrom=null;document.querySelectorAll('.drop-zone').forEach(d=>d.classList.remove('drag-over'));}
-function dragOver(e,ci){e.preventDefault();document.getElementById('dz-'+ci).classList.add('drag-over');}
-function drop(e,ci){
-  e.preventDefault();
-  if(dragCard===null||dragFrom===ci)return;
-  const card=columns[dragFrom].cards.find(c=>c.id===dragCard);
-  columns[dragFrom].cards=columns[dragFrom].cards.filter(c=>c.id!==dragCard);
-  columns[ci].cards.push(card);
-  render();
-}
-
-let addToCol=0;
-function openAddModal(){addToCol=0;document.getElementById('modal').classList.add('open');}
-function openAddModalCol(ci){addToCol=ci;document.getElementById('taskCol').value=ci;document.getElementById('modal').classList.add('open');}
-function closeModal(){document.getElementById('modal').classList.remove('open');}
-function addTask(){
-  const title=document.getElementById('taskTitle').value.trim();
-  if(!title)return;
-  const ci=parseInt(document.getElementById('taskCol').value);
-  const priority=document.getElementById('taskPriority').value;
-  const tag=document.getElementById('taskTag').value||'Task';
-  const due=document.getElementById('taskDue').value||'TBD';
-  const newId=Date.now();
-  columns[ci].cards.unshift({id:newId,title,priority,tags:[tag],due,color:colors[Math.floor(Math.random()*colors.length)]});
-  closeModal();render();
-  document.getElementById('taskTitle').value='';document.getElementById('taskTag').value='';
-}
-
-render();
-</script>
+<script src="script.js"></script>
 </body>
 </html>
