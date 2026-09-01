@@ -22,10 +22,11 @@ A product catalog with category browsing, shopping cart, and checkout flow.
 
 ---
 
-## Gloss-Salon-Static
+## 💅 Gloss Salon — Salon Booking Website
 Rebuilt the Gloss salon booking system as a dependency-free, front-end-only version, recreating the same duration-aware scheduling logic entirely in JavaScript with no backend.
 Used browser storage in place of a database to persist bookings and compute available slots per stylist, and deployed the build live.
-## Tech: HTML,CSS ,JAVASCRIPT
+**Tech:** HTML,CSS,Javacript
+📁 [`/gloss-salon-static`](./gloss-salon-static)
 
 
 ## ✅ TaskFlow — Team Task Manager
