@@ -22,6 +22,12 @@ A product catalog with category browsing, shopping cart, and checkout flow.
 
 ---
 
+## Gloss-Salon-Static
+Rebuilt the Gloss salon booking system as a dependency-free, front-end-only version, recreating the same duration-aware scheduling logic entirely in JavaScript with no backend.
+Used browser storage in place of a database to persist bookings and compute available slots per stylist, and deployed the build live.
+## Tech: HTML,CSS ,JAVASCRIPT
+
+
 ## ✅ TaskFlow — Team Task Manager
 A Kanban-style task board with drag-and-drop cards across columns.
 **Features:** drag & drop tasks, add new task modal, priority tags, due dates
